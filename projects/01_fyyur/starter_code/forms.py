@@ -2,6 +2,12 @@ from datetime import datetime
 from flask_wtf import Form
 from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField
 from wtforms.validators import DataRequired, AnyOf, URL
+import enum
+#from app import db
+from models import db
+from wtforms.ext.sqlalchemy.fields import QuerySelectField
+
+
 
 class ShowForm(Form):
     artist_id = StringField(
@@ -15,6 +21,9 @@ class ShowForm(Form):
         validators=[DataRequired()],
         default= datetime.today()
     )
+
+
+
 
 class VenueForm(Form):
     name = StringField(
@@ -83,13 +92,18 @@ class VenueForm(Form):
         'address', validators=[DataRequired()]
     )
     phone = StringField(
-        'phone'
+        'phone', validators=[DataRequired(message="phone")]
     )
     image_link = StringField(
         'image_link'
     )
-    genres = SelectMultipleField(
+    genres = SelectField(
         # TODO implement enum restriction
+        # 'genres', validators=[DataRequired()],
+        # query_factory=db.GenresChoices.fetch_names,
+        #                        get_pk=lambda a: a,
+        #                        get_label=lambda a: a
+      
         'genres', validators=[DataRequired()],
         choices=[
             ('Alternative', 'Alternative'),
@@ -112,6 +126,7 @@ class VenueForm(Form):
             ('Soul', 'Soul'),
             ('Other', 'Other'),
         ]
+    
     )
     facebook_link = StringField(
         'facebook_link', validators=[URL()]

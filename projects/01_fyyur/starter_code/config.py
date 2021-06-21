@@ -7,7 +7,16 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 DEBUG = True
 
 # Connect to the database
+class Config(object):
+    DEBUG = True
+    DEVELOPMENT = True
+    SECRET_KEY = 'Aa123456'
+    FLASK_HTPASSWD_PATH = '/secret/.htpasswd'
+    FLASK_SECRET = SECRET_KEY
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:Aa123456@localhost:5432/Fyyurdb'
+    DATABASE_URI = 'postgresql://postgres:Aa123456@localhost:5432/Fyyurdb'
+    DB_SERVER = 'localhost'
+    FLASK_ENV = 'development'
 
-
-# TODO IMPLEMENT DATABASE URL
-SQLALCHEMY_DATABASE_URI = '<Put your local database url>'
+# TODO DONE : IMPLEMENT DATABASE URL
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:Aa123456@localhost:5432/Fyyurdb'
